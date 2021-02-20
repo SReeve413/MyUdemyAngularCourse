@@ -9,7 +9,9 @@ import { RecipesDetailComponent } from './recipes/recipes-detail/recipes-detail.
 import { RecipesItemComponent } from './recipes/recipes-list/recipes-item/recipes-item.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
-import { OddListComponent } from './oddList/odd-list/odd-list.component'
+
+import { OddListComponent } from './oddList/odd-list/odd-list.component';
+import { BasicHighlightDirective } from '../app/oddList/basic-highlight/basic-highlight.directive'
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { OddListComponent } from './oddList/odd-list/odd-list.component'
     RecipesItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    OddListComponent
+    
+    OddListComponent,
+    BasicHighlightDirective
   ],
   imports: [
     BrowserModule
