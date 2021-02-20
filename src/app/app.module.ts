@@ -11,7 +11,8 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 
 import { OddListComponent } from './oddList/odd-list/odd-list.component';
-import { BasicHighlightDirective } from '../app/oddList/basic-highlight/basic-highlight.directive'
+import { BasicHighlightDirective } from '../app/oddList/basic-highlight/basic-highlight.directive';
+import { BetterHighlightDirective } from './oddList/better-highlight/better-highlight.directive'
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { BasicHighlightDirective } from '../app/oddList/basic-highlight/basic-hi
     ShoppingEditComponent,
     
     OddListComponent,
-    BasicHighlightDirective
+    BasicHighlightDirective,
+    BetterHighlightDirective
   ],
   imports: [
     BrowserModule
