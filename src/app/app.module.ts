@@ -13,7 +13,8 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { OddListComponent } from './oddList/odd-list/odd-list.component';
 import { BasicHighlightDirective } from '../app/oddList/basic-highlight/basic-highlight.directive';
 import { BetterHighlightDirective } from './oddList/better-highlight/better-highlight.directive';
-import { UnlessDirective } from './oddList/unless.directive'
+import { UnlessDirective } from './oddList/unless.directive';
+import { DropdownDirective } from './shared/dropdown.directive'
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { UnlessDirective } from './oddList/unless.directive'
     OddListComponent,
     BasicHighlightDirective,
     BetterHighlightDirective,
-    UnlessDirective
+    UnlessDirective,
+    DropdownDirective
   ],
   imports: [
     BrowserModule
