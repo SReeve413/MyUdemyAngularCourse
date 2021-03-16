@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -15,7 +18,9 @@ import { OddListComponent } from './oddList/odd-list/odd-list.component';
 import { BasicHighlightDirective } from '../app/oddList/basic-highlight/basic-highlight.directive';
 import { BetterHighlightDirective } from './oddList/better-highlight/better-highlight.directive';
 import { UnlessDirective } from './oddList/unless.directive';
-import { DropdownDirective } from './shared/dropdown.directive'
+import { DropdownDirective } from './shared/dropdown.directive';
+
+
 
 @NgModule({
   declarations: [
@@ -35,7 +40,10 @@ import { DropdownDirective } from './shared/dropdown.directive'
     DropdownDirective
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    
+    AppRoutingModule
   ],
   providers: [ShoppingListService],
   bootstrap: [AppComponent]
