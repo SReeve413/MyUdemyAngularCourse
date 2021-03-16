@@ -19,6 +19,7 @@ import { BasicHighlightDirective } from '../app/oddList/basic-highlight/basic-hi
 import { BetterHighlightDirective } from './oddList/better-highlight/better-highlight.directive';
 import { UnlessDirective } from './oddList/unless.directive';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 
 
 
@@ -37,7 +38,8 @@ import { DropdownDirective } from './shared/dropdown.directive';
     BasicHighlightDirective,
     BetterHighlightDirective,
     UnlessDirective,
-    DropdownDirective
+    DropdownDirective,
+    RecipeStartComponent
   ],
   imports: [
     BrowserModule,
