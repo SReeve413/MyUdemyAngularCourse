@@ -25,6 +25,10 @@ ngOnInit(){
   );
 }
 
+onLogout(){
+  this.authService.logout();
+}
+
   onSaveData(){
     this.dataStorageService.storeRecipes();
   }
