@@ -96,4 +96,5 @@ export class AuthService {
     const user = new User(email, userId, token, experationDate);
     this.user.next(user);
   }
+
 }
