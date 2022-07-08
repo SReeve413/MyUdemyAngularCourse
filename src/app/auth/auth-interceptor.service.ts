@@ -11,7 +11,7 @@ export class AuthInterceptorService implements HttpInterceptor{
   ){ }
 
   intercept(req: HttpRequest<any>, next: HttpHandler){
-    return next.handle(req) // adding Auth Params Fails
+    // return next.handle(req) // adding Auth Params Fails
     return this.authService.user.pipe(
       take(1),
       exhaustMap(user => {
