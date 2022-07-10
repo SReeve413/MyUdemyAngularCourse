@@ -69,6 +69,10 @@ import { PlaceholderDirective } from './shared/placeholder.directive';
     useClass: AuthInterceptorService,
     multi: true}
   ],
+  // No Longer Needed Angular 9 or greater
+  entryComponents: [
+    AlertComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
