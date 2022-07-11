@@ -14,16 +14,14 @@ import { OddListComponent } from './oddList/odd-list/odd-list.component';
 import { BasicHighlightDirective } from '../app/oddList/basic-highlight/basic-highlight.directive';
 import { BetterHighlightDirective } from './oddList/better-highlight/better-highlight.directive';
 import { UnlessDirective } from './oddList/unless.directive';
-import { DropdownDirective } from './shared/dropdown.directive';
 
 import { RecipeService } from './recipes/recipe.service';
 import { AuthComponent } from './auth/auth.component';
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component'
-import { PlaceholderDirective } from './shared/placeholder.directive';
 import { RecipesModule } from './recipes/recipes.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -35,12 +33,8 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
     BasicHighlightDirective,
     BetterHighlightDirective,
     UnlessDirective,
-    DropdownDirective,
 
     AuthComponent,
-    LoadingSpinnerComponent,
-    AlertComponent,
-    PlaceholderDirective
   ],
   imports: [
     BrowserModule,
@@ -50,7 +44,8 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
     AppRoutingModule,
     RecipesModule,
-    ShoppingListModule
+    ShoppingListModule,
+    SharedModule
   ],
   providers: [
     ShoppingListService,
