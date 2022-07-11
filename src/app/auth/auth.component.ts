@@ -14,7 +14,8 @@ export class AuthComponent {
   isLoginMode = true;
   isLoading = false;
   error: string = null;
-  @ViewChild(PlaceholderDirective, {static: false}) alertHost: PlaceholderDirective;
+  @ViewChild(PlaceholderDirective, { static: false })
+  alertHost: PlaceholderDirective;
   private closeSub: Subscription;
 
   constructor(
@@ -66,22 +67,23 @@ export class AuthComponent {
   }
 
   private showErrorAlert(message: string) {
-    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
-      AlertComponent
-    );
+    const alertCmpFactory =
+      this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
     const hostViewContainerRef = this.alertHost.viewContainerRef;
     hostViewContainerRef.clear();
 
     const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
 
     componentRef.instance.message = message;
-    this.closeSub = componentRef.instance.close.subscribe(() =>{
+    this.closeSub = componentRef.instance.close.subscribe(() => {
       this.closeSub.unsubscribe();
       hostViewContainerRef.clear();
-
     });
-
-
   }
 
+  ngOnDestroy() {
+    if (this.closeSub) {
+      this.closeSub.unsubscribe();
+    }
+  }
 }

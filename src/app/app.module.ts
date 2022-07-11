@@ -7,10 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { RecipesListComponent } from './recipes/recipes-list/recipes-list.component';
-import { RecipesDetailComponent } from './recipes/recipes-detail/recipes-detail.component';
-import { RecipesItemComponent } from './recipes/recipes-list/recipes-item/recipes-item.component';
+
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
@@ -20,24 +17,21 @@ import { BasicHighlightDirective } from '../app/oddList/basic-highlight/basic-hi
 import { BetterHighlightDirective } from './oddList/better-highlight/better-highlight.directive';
 import { UnlessDirective } from './oddList/unless.directive';
 import { DropdownDirective } from './shared/dropdown.directive';
-import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
-import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+
 import { RecipeService } from './recipes/recipe.service';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component'
 import { PlaceholderDirective } from './shared/placeholder.directive';
+import { RecipesModule } from './recipes/recipes.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecipesComponent,
-    RecipesListComponent,
-    RecipesDetailComponent,
-    RecipesItemComponent,
+
     ShoppingListComponent,
     ShoppingEditComponent,
 
@@ -46,8 +40,6 @@ import { PlaceholderDirective } from './shared/placeholder.directive';
     BetterHighlightDirective,
     UnlessDirective,
     DropdownDirective,
-    RecipeStartComponent,
-    RecipeEditComponent,
 
     AuthComponent,
     LoadingSpinnerComponent,
@@ -60,7 +52,8 @@ import { PlaceholderDirective } from './shared/placeholder.directive';
     ReactiveFormsModule,
     HttpClientModule,
 
-    AppRoutingModule
+    AppRoutingModule,
+    RecipesModule
   ],
   providers: [
     ShoppingListService,
