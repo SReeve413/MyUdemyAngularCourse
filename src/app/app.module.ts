@@ -14,12 +14,12 @@ import { BasicHighlightDirective } from '../app/oddList/basic-highlight/basic-hi
 import { BetterHighlightDirective } from './oddList/better-highlight/better-highlight.directive';
 import { UnlessDirective } from './oddList/unless.directive';
 
-import { AuthComponent } from './auth/auth.component';
 import { AlertComponent } from './shared/alert/alert.component'
 import { RecipesModule } from './recipes/recipes.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -31,22 +31,18 @@ import { CoreModule } from './core.module';
     BasicHighlightDirective,
     BetterHighlightDirective,
     UnlessDirective,
-
-    AuthComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
-
     AppRoutingModule,
     RecipesModule,
     ShoppingListModule,
+    AuthModule,
     SharedModule,
     CoreModule
   ],
-
   // No Longer Needed Angular 9 or greater
   entryComponents: [
     AlertComponent
