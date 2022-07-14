@@ -17,6 +17,7 @@ import { UnlessDirective } from './oddList/unless.directive';
 import { AlertComponent } from './shared/alert/alert.component'
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
+import { LoggingService } from './logging.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,9 @@ import { CoreModule } from './core.module';
     SharedModule,
     CoreModule
   ],
+  // providers: [
+  //   LoggingService
+  // ],
   // No Longer Needed Angular 9 or greater
   entryComponents: [
     AlertComponent
