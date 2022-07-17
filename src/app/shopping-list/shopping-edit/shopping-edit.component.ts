@@ -17,7 +17,6 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   editMode = false;
-  editedItemIndex: number;
   editedItem: Ingredient;
 
   constructor(
@@ -26,18 +25,20 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription =  this.store.select('shoppingList').subscribe((stateData) => {
-      if (stateData.editedIngridientIndex > -1) {
-        this.editMode = true;
-        this.editedItem = stateData.editedIngridient;
-        this.slForm.setValue({
-          name: this.editedItem.name,
-          amount: this.editedItem.amount,
-        });
-      } else {
-        this.editMode = false;
-      }
-    });
+    this.subscription = this.store
+      .select('shoppingList')
+      .subscribe(stateData => {
+        if (stateData.editedIngredientIndex > -1) {
+          this.editMode = true;
+          this.editedItem = stateData.editedIngredient;
+          this.slForm.setValue({
+            name: this.editedItem.name,
+            amount: this.editedItem.amount,
+          });
+        } else {
+          this.editMode = false;
+        }
+      });
     // this.subscription = this.slService.startedEditing.subscribe(
     //   (index: number) => {
     //     this.editedItemIndex = index;
@@ -58,10 +59,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     if (this.editMode) {
       // this.slService.updateIngredient(this.editedItemIndex, newIngrediant);
       this.store.dispatch(
-        new ShoppingListActions.UpdateIngredient({
-          index: this.editedItemIndex,
-          ingredient: newIngrediant,
-        })
+        new ShoppingListActions.UpdateIngredient(newIngrediant)
       );
     } else {
       // this.slService.addIngredient(newIngrediant);
@@ -75,7 +73,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   onDelete() {
     // this.slService.deleteIngredient(this.editedItemIndex);
     this.store.dispatch(
-      new ShoppingListActions.DeleteIngredient(this.editedItemIndex)
+      new ShoppingListActions.DeleteIngredient()
     );
     this.slForm.reset();
     this.editMode = false;
