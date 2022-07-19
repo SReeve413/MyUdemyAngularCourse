@@ -4,7 +4,11 @@ import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, Subject, throwError } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
 
 export interface AuthResponseData {
   kind: string;
@@ -23,13 +27,17 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
   private tokenExperationTimer: any;
 
-  constructor(private http: HttpClient,
-    private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private store: Store<fromApp.AppState>
+  ) {}
 
   signUp(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey,
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
+          environment.firebaseAPIKey,
         {
           email: email,
           password: password,
@@ -52,58 +60,76 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='  + environment.firebaseAPIKey,
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
+          environment.firebaseAPIKey,
         {
           email: email,
           password: password,
           secureToken: true,
         }
       )
-      .pipe(catchError(this.handleError),
-      tap((resData) => {
-        this.handleAuthentication(
-          resData.email,
-          resData.localId,
-          resData.idToken,
-          +resData.expiresIn
-        );
-      })
-    );
+      .pipe(
+        catchError(this.handleError),
+        tap((resData) => {
+          this.handleAuthentication(
+            resData.email,
+            resData.localId,
+            resData.idToken,
+            +resData.expiresIn
+          );
+        })
+      );
   }
 
-  autoLogin(){
+  autoLogin() {
     const userData: {
-      email: string,
-      id: string,
-      _token: string,
-      _tokenExperationDate: string,
-    } = JSON.parse(localStorage.getItem('userData'))
-    if(!userData){
-      return
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExperationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
+      return;
     } else {
-      const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExperationDate));
-      if(loadedUser.token){
+      const loadedUser = new User(
+        userData.email,
+        userData.id,
+        userData._token,
+        new Date(userData._tokenExperationDate)
+      );
+      if (loadedUser.token) {
         this.user.next(loadedUser);
-        const experationDuration = new Date(userData._tokenExperationDate).getTime() - new Date().getTime();
+        this.store.dispatch(
+          new AuthActions.Login({
+            email: loadedUser.email,
+            userId: loadedUser.id,
+            token: loadedUser.token,
+            expirationDate: new Date(userData._tokenExperationDate),
+          })
+        );
+        const experationDuration =
+          new Date(userData._tokenExperationDate).getTime() -
+          new Date().getTime();
         this.autoLogout(experationDuration);
       }
     }
   }
 
-  logout(){
-    this.user.next(null);
+  logout() {
+    // this.user.next(null);
+    this.store.dispatch(new AuthActions.Logout());
     this.router.navigate(['/auth']);
-    localStorage.removeItem('userData')
-    if(this.tokenExperationTimer){
+    localStorage.removeItem('userData');
+    if (this.tokenExperationTimer) {
       clearTimeout(this.tokenExperationTimer);
       this.tokenExperationTimer = null;
     }
   }
 
-  autoLogout(experationDuration: number){
+  autoLogout(experationDuration: number) {
     this.tokenExperationTimer = setTimeout(() => {
-      this.logout
-    }, experationDuration)
+      this.logout;
+    }, experationDuration);
   }
 
   private handleError(errorRes: HttpErrorResponse) {
@@ -133,9 +159,9 @@ export class AuthService {
   ) {
     const experationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, experationDate);
-    this.user.next(user);
+    // this.user.next(user);
+    this.store.dispatch(new AuthActions.Login({email:email, userId: userId, token: token, expirationDate: experationDate}));
     this.autoLogout(expiresIn * 1000);
-    localStorage.setItem('userData', JSON.stringify(user))
+    localStorage.setItem('userData', JSON.stringify(user));
   }
-
 }
