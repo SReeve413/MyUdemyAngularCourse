@@ -24,7 +24,7 @@ export interface AuthResponseData {
   providedIn: 'root',
 })
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
+  // user = new BehaviorSubject<User>(null);
   private tokenExperationTimer: any;
 
   constructor(
@@ -98,7 +98,7 @@ export class AuthService {
         new Date(userData._tokenExperationDate)
       );
       if (loadedUser.token) {
-        this.user.next(loadedUser);
+        // this.user.next(loadedUser);
         this.store.dispatch(
           new AuthActions.Login({
             email: loadedUser.email,
