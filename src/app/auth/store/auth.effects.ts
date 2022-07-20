@@ -52,7 +52,7 @@ const handleError = (errorRes: any) => {
 export class AuthEffects {
   @Effect()
   authSignup = this.actions$.pipe(
-    ofType(AuthActions.LOGIN_START),
+    ofType(AuthActions.SIGNUP_START),
     switchMap((signupAction: AuthActions.SignupStart) => {
       return this.http.post<AuthResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
@@ -99,12 +99,14 @@ export class AuthEffects {
   );
 
   @Effect({ dispatch: false })
-  authSuccess = this.actions$.pipe(
-    ofType(AuthActions.AUTHENTICATE_SUCCESS),
+  authRedirect = this.actions$.pipe(
+    ofType(AuthActions.AUTHENTICATE_SUCCESS, AuthActions.LOGOUT),
     tap(() => {
       this.router.navigate(['./']);
     })
   );
+
+
 
   constructor(
     private actions$: Actions,
