@@ -10,7 +10,7 @@ export class Login implements Action {
 
   constructor(
     public payload: {
-      email: string;s
+      email: string;
       userId: string;
       token: string;
       expirationDate: Date;
