@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as fromApp from '../../store/app.reducer';
 import { Recipe } from '../recipe.model';
-import { RecipeService } from '../recipe.service';
 import * as RecipesActions from '../store/recipe.actions';
 
 @Component({
@@ -23,7 +22,6 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService,
     private router: Router,
     private store: Store<fromApp.AppState>
   ) {}
@@ -37,14 +35,8 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-    // const newRecipe = new Recipe(
-    //   this.recipeForm.value['name'],
-    //   this.recipeForm.value['decription'],
-    //   this.recipeForm.value['imagePath'],
-    //   this.recipeForm.value['ingredients']
-    // );
+
     if (this.editMode) {
-      // this.recipeService.updateRecipe(this.id, this.recipeForm.value);
       this.store.dispatch(
         new RecipesActions.UpdateRecipe({
           index: this.id,
@@ -52,7 +44,6 @@ export class RecipeEditComponent implements OnInit {
         })
       );
     } else {
-      // this.recipeService.addRecipe(this.recipeForm.value);
       this.store.dispatch(new RecipesActions.AddRecipe(this.recipeForm.value));
     }
     this.onCancel();
@@ -85,18 +76,17 @@ export class RecipeEditComponent implements OnInit {
   }
 
   get controls() {
-    // a getter!
     return (<FormArray>this.recipeForm.get('ingredients')).controls;
   }
 
   private initForm() {
     let recipeName = '';
-    let reciperImagePath = '';
-    let reciperDescription = '';
+    let recipeImagePath = '';
+    let recipeDescription = '';
     let recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
-      const recipe = this.recipeService.getRecipe(this.id);
+      // const recipe = this.recipeService.getRecipe(this.id);
 
       this.storeSub = this.store
         .select('recipes')
@@ -109,8 +99,8 @@ export class RecipeEditComponent implements OnInit {
         )
         .subscribe((recipe) => {
           recipeName = recipe.name;
-          reciperImagePath = recipe.imagePath;
-          reciperDescription = recipe.description;
+          recipeImagePath = recipe.imagePath;
+          recipeDescription = recipe.description;
           if (recipe['ingredients']) {
             recipe['ingredients'].forEach((ingredient) => {
               recipeIngredients.push(
@@ -129,8 +119,8 @@ export class RecipeEditComponent implements OnInit {
 
     this.recipeForm = new FormGroup({
       name: new FormControl(recipeName, Validators.required),
-      imagePath: new FormControl(reciperImagePath, Validators.required),
-      decription: new FormControl(reciperDescription, Validators.required),
+      imagePath: new FormControl(recipeImagePath, Validators.required),
+      description: new FormControl(recipeDescription, Validators.required),
       ingredients: recipeIngredients,
     });
   }
